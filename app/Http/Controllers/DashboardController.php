@@ -21,6 +21,12 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
+
+        // HR user redirects directly to HR Dashboard
+        if ($user->isHR()) {
+            return redirect()->route('hr.dashboard');
+        }
+
         $today = Carbon::today()->toDateString();
 
         // Base queries scoped by role if Telecaller or Salesperson

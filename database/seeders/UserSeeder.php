@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
         $managerRole = Role::where('name', 'Manager')->first();
         $telecallerRole = Role::where('name', 'Telecaller')->first();
         $salesRole = Role::where('name', 'Salesperson')->first();
+        $hrRole = Role::where('name', 'HR')->first();
 
         $users = [
             [
@@ -23,6 +24,14 @@ class UserSeeder extends Seeder
                 'phone' => '+91 98250 11111',
                 'password' => Hash::make('password123'),
                 'role_id' => $adminRole?->id,
+                'status' => 1,
+            ],
+            [
+                'name' => 'Ananya Iyer (HR Manager)',
+                'email' => 'hr@crm.com',
+                'phone' => '+91 98250 66666',
+                'password' => Hash::make('password123'),
+                'role_id' => $hrRole?->id,
                 'status' => 1,
             ],
             [

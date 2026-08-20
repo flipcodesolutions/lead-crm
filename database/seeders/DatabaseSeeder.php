@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             SettingSeeder::class,
             DemoCrmSeeder::class,
+            HRSeeder::class,
         ]);
     }
 }

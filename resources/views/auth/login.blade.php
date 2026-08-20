@@ -61,6 +61,9 @@
             <span class="demo-badge" onclick="fillLogin('admin@crm.com', 'password123')">
                 <i class="bi bi-person-fill-gear me-1 text-danger"></i> Admin
             </span>
+            <span class="demo-badge" onclick="fillLogin('hr@crm.com', 'password123')">
+                <i class="bi bi-person-badge-fill me-1 text-warning"></i> HR
+            </span>
             <span class="demo-badge" onclick="fillLogin('manager@crm.com', 'password123')">
                 <i class="bi bi-person-workspace me-1 text-primary"></i> Manager
             </span>

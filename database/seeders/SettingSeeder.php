@@ -10,7 +10,7 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         $settings = [
-            'company_name' => 'Apex Infotech Solutions Pvt. Ltd.',
+            'company_name' => 'Flipcode solutions Pvt. Ltd',
             'company_email' => 'contact@apexinfotech.in',
             'company_phone' => '+91 98250 12345',
             'company_address' => 'B-402, Titanium City Centre, Prahlad Nagar, S.G. Highway, Ahmedabad, Gujarat 380015',

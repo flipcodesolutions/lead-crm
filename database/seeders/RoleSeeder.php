@@ -26,6 +26,10 @@ class RoleSeeder extends Seeder
                 'name' => 'Salesperson',
                 'description' => 'Sales representative managing assigned leads, opportunities, quotations, and closing deals.',
             ],
+            [
+                'name' => 'HR',
+                'description' => 'Human Resources manager with permissions for employee directory, salaries, leaves, tax, and payroll.',
+            ],
         ];
 
         foreach ($roles as $role) {

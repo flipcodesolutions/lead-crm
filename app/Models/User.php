@@ -73,6 +73,11 @@ class User extends Authenticatable
         return $this->hasMany(Quotation::class, 'created_by');
     }
 
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
+
     public function customNotifications()
     {
         return $this->hasMany(Notification::class);
@@ -118,5 +123,15 @@ class User extends Authenticatable
     public function isSalesperson(): bool
     {
         return $this->hasRole(['sales', 'salesperson']);
+    }
+
+    public function isHR(): bool
+    {
+        return $this->hasRole('hr');
+    }
+
+    public function canManageHR(): bool
+    {
+        return $this->hasRole(['admin', 'manager', 'hr']);
     }
 }

@@ -283,69 +283,144 @@
 
         <div class="flex-grow-1 overflow-y-auto py-2">
             <!-- Core Navigation -->
-            <div class="nav-section-title">Overview</div>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                        <i class="bi bi-grid-1x2-fill"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-            </ul>
+            @if(auth()->user()->isHR())
+                <div class="nav-section-title">Overview</div>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="{{ route('hr.dashboard') }}" class="nav-link {{ request()->routeIs('hr.dashboard') ? 'active' : '' }}">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>HR Dashboard</span>
+                        </a>
+                    </li>
+                </ul>
+            @else
+                <div class="nav-section-title">Overview</div>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <i class="bi bi-grid-1x2-fill"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                </ul>
 
-            <!-- CRM Modules -->
-            <div class="nav-section-title">Lead Management</div>
+                <!-- CRM Modules -->
+                <div class="nav-section-title">Lead Management</div>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.index') || request()->routeIs('leads.show') || request()->routeIs('leads.create') || request()->routeIs('leads.edit') ? 'active' : '' }}">
+                            <i class="bi bi-funnel-fill"></i>
+                            <span>Leads</span>
+                        </a>
+                    </li>
+                    @if(in_array(auth()->user()->role?->name, ['Admin', 'Manager']))
+                    <li class="nav-item">
+                        <a href="{{ route('leads.import') }}" class="nav-link {{ request()->routeIs('leads.import*') ? 'active' : '' }}">
+                            <i class="bi bi-cloud-arrow-up-fill"></i>
+                            <span>Import Leads</span>
+                        </a>
+                    </li>
+                    @endif
+                    <li class="nav-item">
+                        <a href="{{ route('opportunities.index') }}" class="nav-link {{ request()->routeIs('opportunities.*') ? 'active' : '' }}">
+                            <i class="bi bi-kanban-fill"></i>
+                            <span>Sales Pipeline</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('follow-ups.index') }}" class="nav-link {{ request()->routeIs('follow-ups.*') ? 'active' : '' }}">
+                            <i class="bi bi-calendar-check-fill"></i>
+                            <span>Follow-ups</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('activities.index') }}" class="nav-link {{ request()->routeIs('activities.*') ? 'active' : '' }}">
+                            <i class="bi bi-check2-square"></i>
+                            <span>Activities</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Sales Modules -->
+                <div class="nav-section-title">Sales & Billing</div>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="{{ route('quotations.index') }}" class="nav-link {{ request()->routeIs('quotations.*') ? 'active' : '' }}">
+                            <i class="bi bi-receipt"></i>
+                            <span>Quotations</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('reports.index') }}" class="nav-link {{ request()->routeIs('reports.*') ? 'active' : '' }}">
+                            <i class="bi bi-bar-chart-line-fill"></i>
+                            <span>Analytics & Reports</span>
+                        </a>
+                    </li>
+                </ul>
+            @endif
+
+            <!-- HR & Payroll Module (Visible to Admin, Manager, and HR) -->
+            @if(auth()->user()->canManageHR())
+            <div class="nav-section-title">HR & Payroll</div>
             <ul class="nav nav-pills flex-column mb-auto">
+                @if(!auth()->user()->isHR())
                 <li class="nav-item">
-                    <a href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.index') || request()->routeIs('leads.show') || request()->routeIs('leads.create') || request()->routeIs('leads.edit') ? 'active' : '' }}">
-                        <i class="bi bi-funnel-fill"></i>
-                        <span>Leads</span>
-                    </a>
-                </li>
-                @if(in_array(auth()->user()->role?->name, ['Admin', 'Manager']))
-                <li class="nav-item">
-                    <a href="{{ route('leads.import') }}" class="nav-link {{ request()->routeIs('leads.import*') ? 'active' : '' }}">
-                        <i class="bi bi-cloud-arrow-up-fill"></i>
-                        <span>Import Leads</span>
+                    <a href="{{ route('hr.dashboard') }}" class="nav-link {{ request()->routeIs('hr.dashboard') ? 'active' : '' }}">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>HR Dashboard</span>
                     </a>
                 </li>
                 @endif
                 <li class="nav-item">
-                    <a href="{{ route('opportunities.index') }}" class="nav-link {{ request()->routeIs('opportunities.*') ? 'active' : '' }}">
-                        <i class="bi bi-kanban-fill"></i>
-                        <span>Sales Pipeline</span>
+                    <a href="{{ route('hr.employees.index') }}" class="nav-link {{ request()->routeIs('hr.employees.*') ? 'active' : '' }}">
+                        <i class="bi bi-person-lines-fill"></i>
+                        <span>Employees</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('follow-ups.index') }}" class="nav-link {{ request()->routeIs('follow-ups.*') ? 'active' : '' }}">
-                        <i class="bi bi-calendar-check-fill"></i>
-                        <span>Follow-ups</span>
+                    <a href="{{ route('hr.departments.index') }}" class="nav-link {{ request()->routeIs('hr.departments.*') ? 'active' : '' }}">
+                        <i class="bi bi-building"></i>
+                        <span>Departments</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('activities.index') }}" class="nav-link {{ request()->routeIs('activities.*') ? 'active' : '' }}">
-                        <i class="bi bi-check2-square"></i>
-                        <span>Activities</span>
+                    <a href="{{ route('hr.designations.index') }}" class="nav-link {{ request()->routeIs('hr.designations.*') ? 'active' : '' }}">
+                        <i class="bi bi-person-badge"></i>
+                        <span>Designations</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('hr.salaries.index') }}" class="nav-link {{ request()->routeIs('hr.salaries.*') ? 'active' : '' }}">
+                        <i class="bi bi-cash-stack"></i>
+                        <span>Salary & CTC</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('hr.leave-requests.index') }}" class="nav-link {{ request()->routeIs('hr.leave-requests.*') || request()->routeIs('hr.leave-allocations.*') || request()->routeIs('hr.leave-types.*') ? 'active' : '' }}">
+                        <i class="bi bi-calendar2-check-fill"></i>
+                        <span>Leaves & Offs</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('hr.payrolls.index') }}" class="nav-link {{ request()->routeIs('hr.payrolls.*') ? 'active' : '' }}">
+                        <i class="bi bi-receipt-cutoff"></i>
+                        <span>Monthly Payroll</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('hr.tax-slabs.index') }}" class="nav-link {{ request()->routeIs('hr.tax-slabs.*') || request()->routeIs('hr.tax-calculator') ? 'active' : '' }}">
+                        <i class="bi bi-percent"></i>
+                        <span>Tax Slabs & TDS</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('hr.leave-reports.index') }}" class="nav-link {{ request()->routeIs('hr.leave-reports.*') ? 'active' : '' }}">
+                        <i class="bi bi-file-earmark-bar-graph"></i>
+                        <span>HR Reports</span>
                     </a>
                 </li>
             </ul>
-
-            <!-- Sales Modules -->
-            <div class="nav-section-title">Sales & Billing</div>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="{{ route('quotations.index') }}" class="nav-link {{ request()->routeIs('quotations.*') ? 'active' : '' }}">
-                        <i class="bi bi-receipt"></i>
-                        <span>Quotations</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('reports.index') }}" class="nav-link {{ request()->routeIs('reports.*') ? 'active' : '' }}">
-                        <i class="bi bi-bar-chart-line-fill"></i>
-                        <span>Analytics & Reports</span>
-                    </a>
-                </li>
-            </ul>
+            @endif
 
             <!-- Administration / Masters -->
             @if(auth()->user()->isAdmin())

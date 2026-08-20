@@ -89,6 +89,52 @@ Route::middleware('auth')->group(function () {
     Route::match(['get', 'post'], '/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
     Route::match(['get', 'post'], '/notifications/read-all', [NotificationController::class, 'markAllAsRead'])->name('notifications.read-all');
 
+    // HR & Payroll Management Module
+    Route::prefix('hr')->name('hr.')->group(function () {
+        // Dashboard
+        Route::get('/dashboard', [\App\Http\Controllers\HR\HRDashboardController::class, 'index'])->name('dashboard');
+
+        // Departments & Designations
+        Route::resource('departments', \App\Http\Controllers\HR\DepartmentController::class);
+        Route::resource('designations', \App\Http\Controllers\HR\DesignationController::class);
+
+        // Employee Management
+        Route::resource('employees', \App\Http\Controllers\HR\EmployeeController::class);
+
+        // Salaries & Compensation History
+        Route::get('/salaries', [\App\Http\Controllers\HR\EmployeeSalaryController::class, 'index'])->name('salaries.index');
+        Route::get('/salaries/create', [\App\Http\Controllers\HR\EmployeeSalaryController::class, 'create'])->name('salaries.create');
+        Route::post('/salaries', [\App\Http\Controllers\HR\EmployeeSalaryController::class, 'store'])->name('salaries.store');
+        Route::get('/salaries/{employee}/history', [\App\Http\Controllers\HR\EmployeeSalaryController::class, 'history'])->name('salaries.history');
+
+        // Leave Types & Allocations
+        Route::resource('leave-types', \App\Http\Controllers\HR\LeaveTypeController::class);
+        Route::get('/leave-allocations', [\App\Http\Controllers\HR\LeaveAllocationController::class, 'index'])->name('leave-allocations.index');
+        Route::get('/leave-allocations/create', [\App\Http\Controllers\HR\LeaveAllocationController::class, 'create'])->name('leave-allocations.create');
+        Route::post('/leave-allocations', [\App\Http\Controllers\HR\LeaveAllocationController::class, 'store'])->name('leave-allocations.store');
+
+        // Leave Requests Workflow
+        Route::resource('leave-requests', \App\Http\Controllers\HR\LeaveRequestController::class);
+        Route::post('/leave-requests/{leaveRequest}/approve', [\App\Http\Controllers\HR\LeaveRequestController::class, 'approve'])->name('leave-requests.approve');
+        Route::post('/leave-requests/{leaveRequest}/reject', [\App\Http\Controllers\HR\LeaveRequestController::class, 'reject'])->name('leave-requests.reject');
+        Route::post('/leave-requests/{leaveRequest}/cancel', [\App\Http\Controllers\HR\LeaveRequestController::class, 'cancel'])->name('leave-requests.cancel');
+
+        // Leave Reports
+        Route::get('/leave-reports', [\App\Http\Controllers\HR\LeaveReportController::class, 'index'])->name('leave-reports.index');
+
+        // Tax Slabs & Calculator
+        Route::resource('tax-slabs', \App\Http\Controllers\HR\TaxSlabController::class);
+        Route::get('/tax-calculator', [\App\Http\Controllers\HR\TaxSlabController::class, 'calculator'])->name('tax-calculator');
+
+        // Payroll & Payslips
+        Route::get('/payrolls', [\App\Http\Controllers\HR\PayrollController::class, 'index'])->name('payrolls.index');
+        Route::get('/payrolls/generate', [\App\Http\Controllers\HR\PayrollController::class, 'create'])->name('payrolls.generate.form');
+        Route::post('/payrolls/generate', [\App\Http\Controllers\HR\PayrollController::class, 'generate'])->name('payrolls.generate');
+        Route::get('/payrolls/{payroll}', [\App\Http\Controllers\HR\PayrollController::class, 'show'])->name('payrolls.show');
+        Route::get('/payrolls/{payroll}/payslip', [\App\Http\Controllers\HR\PayrollController::class, 'payslip'])->name('payrolls.payslip');
+        Route::post('/payrolls/{payroll}/status', [\App\Http\Controllers\HR\PayrollController::class, 'updateStatus'])->name('payrolls.status');
+    });
+
     // Admin & Masters Management
     Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
         Route::resource('users', UserController::class);
