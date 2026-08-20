@@ -1,0 +1,181 @@
+/* ==========================================================================
+   🎨 CRM MASTER THEME COLOR CONFIGURATION
+   Change any color variable below to instantly customize the entire CRM theme.
+   ========================================================================== */
+
+:root {
+    /* --------------------------------------------------------------------------
+       1. BRAND PRIMARY & ACCENT COLORS (Change these to rebrand the entire CRM)
+       -------------------------------------------------------------------------- */
+    --primary-color: #4f46e5;            /* Main brand accent color (Default: Indigo #4f46e5) */
+    --primary-hover: #4338ca;            /* Primary button/link hover color */
+    --primary-light: #eef2ff;            /* Light background tint for active items & badges */
+    --primary-gradient-start: #4f46e5;   /* Primary gradient start */
+    --primary-gradient-end: #7c3aed;     /* Primary gradient end (Purple #7c3aed) */
+    --primary-gradient: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
+    --primary-shadow: rgba(79, 70, 229, 0.35); /* Shadow glow for primary buttons & active pills */
+
+    /* --------------------------------------------------------------------------
+       2. SIDEBAR STYLING
+       -------------------------------------------------------------------------- */
+    --sidebar-bg: #0f172a;               /* Sidebar background color (Dark Slate #0f172a) */
+    --sidebar-border: #1e293b;           /* Sidebar divider & brand border */
+    --sidebar-hover: #1e293b;            /* Sidebar nav-item hover background */
+    --sidebar-active: var(--primary-color); /* Sidebar active pill background */
+    --sidebar-text: #94a3b8;             /* Sidebar default link text color */
+    --sidebar-text-active: #ffffff;      /* Sidebar active link text color */
+    --sidebar-section-title: #64748b;    /* Sidebar category section headings */
+
+    /* --------------------------------------------------------------------------
+       3. TOPBAR & NAVIGATION
+       -------------------------------------------------------------------------- */
+    --topbar-bg: #ffffff;                /* Top navigation bar background */
+    --topbar-border: #e2e8f0;            /* Topbar bottom border */
+
+    /* --------------------------------------------------------------------------
+       4. PAGE BACKGROUND & CARD SURFACES
+       -------------------------------------------------------------------------- */
+    --content-bg: #f8fafc;               /* Main page background */
+    --card-bg: #ffffff;                  /* Card & table background */
+    --card-border: #e2e8f0;              /* Card outline border */
+    --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    --card-hover-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+
+    /* --------------------------------------------------------------------------
+       5. TYPOGRAPHY COLORS
+       -------------------------------------------------------------------------- */
+    --text-main: #334155;                /* Default body text color */
+    --text-heading: #0f172a;             /* Main headings (h1-h6) */
+    --text-muted: #64748b;               /* Secondary & subtitle text */
+
+    /* --------------------------------------------------------------------------
+       6. STATUS & ALERT COLORS (Pipeline & Badges)
+       -------------------------------------------------------------------------- */
+    --success-color: #10b981;            /* Won deals, active statuses, green badges */
+    --success-light: #ecfdf5;            /* Success background badge tint */
+    --warning-color: #f59e0b;            /* Pending follow-ups, qualification deals */
+    --warning-light: #fffbeb;            /* Warning background badge tint */
+    --danger-color: #ef4444;             /* Lost deals, overdue items, delete actions */
+    --danger-light: #fef2f2;             /* Danger background badge tint */
+    --info-color: #0ea5e9;               /* Information pills, scheduled calls */
+    --info-light: #f0f9ff;               /* Info background badge tint */
+
+    /* --------------------------------------------------------------------------
+       7. LOGIN / AUTH SCREEN
+       -------------------------------------------------------------------------- */
+    --auth-bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+}
+
+/* ==========================================================================
+   DYNAMIC CSS COLOR MAPPINGS
+   ========================================================================== */
+
+/* Primary Button Styling */
+.btn-primary {
+    background: var(--primary-gradient) !important;
+    border: none !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 10px var(--primary-shadow);
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    opacity: 0.92;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px var(--primary-shadow);
+    color: #ffffff !important;
+}
+
+/* Primary Outline Button */
+.btn-outline-primary {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary-gradient) !important;
+    border-color: transparent !important;
+    color: #ffffff !important;
+}
+
+/* Text & Icon Colors */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+/* Primary Badges */
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+.bg-primary-subtle {
+    background-color: var(--primary-light) !important;
+    color: var(--primary-color) !important;
+}
+
+/* Active Nav Links */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background: var(--primary-gradient) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px var(--primary-shadow);
+}
+
+/* Form Focus & Checkbox Controls */
+.form-check-input:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.25rem var(--primary-shadow) !important;
+}
+
+/* Avatar Circles */
+.avatar-circle.bg-primary {
+    background: var(--primary-gradient) !important;
+}
+
+/* ==========================================================================
+   PAGINATION STYLING (Themed Bootstrap 5 Pagination)
+   ========================================================================== */
+.pagination {
+    margin-bottom: 0;
+    gap: 0.35rem;
+}
+
+.pagination .page-item .page-link {
+    color: var(--text-main);
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem !important;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.pagination .page-item .page-link:hover {
+    color: var(--primary-color);
+    background-color: var(--primary-light);
+    border-color: var(--primary-color);
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--primary-gradient) !important;
+    border-color: transparent !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 10px var(--primary-shadow);
+    font-weight: 600;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #94a3b8;
+    background-color: #f8fafc;
+    border-color: #e2e8f0;
+    opacity: 0.7;
+}
